@@ -7,12 +7,16 @@
 
     <!-- 轮播图 -->
     <home-swiper :banners="banners"></home-swiper>
+
+    <!-- 推荐 -->
+    <recommend-view :recommends="recommends"></recommend-view>
   </div>
 </template>
 
 <script>
 import NavBar from "components/common/navbar/NavBar.vue";
 import HomeSwiper from "views/home/childComps/HomeSwiper.vue";
+import RecommendView from "views/home/childComps/RecommendView";
 
 import { getHomeMultidata } from "network/home.js";
 
@@ -21,6 +25,7 @@ export default {
   components: {
     NavBar,
     HomeSwiper,
+    RecommendView,
   },
   data() {
     return {
