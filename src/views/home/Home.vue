@@ -5,11 +5,14 @@
       <div slot="center">购物街</div>
     </nav-bar>
 
+    <!-- 轮播图 -->
+    <home-swiper :banners="banners"></home-swiper>
   </div>
 </template>
 
 <script>
 import NavBar from "components/common/navbar/NavBar.vue";
+import HomeSwiper from "views/home/childComps/HomeSwiper.vue";
 
 import { getHomeMultidata } from "network/home.js";
 
@@ -17,11 +20,12 @@ export default {
   name: "Home",
   components: {
     NavBar,
+    HomeSwiper,
   },
   data() {
     return {
-      banners: [], //关于轮播图的数据
-      recommends: [],
+      banners: [], //保存轮播图的数据
+      recommends: [], //保存推荐的数据
     };
   },
   created() {
