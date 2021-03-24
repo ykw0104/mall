@@ -13,6 +13,138 @@
 
     <!-- 4. 本周流行,就一张图片 -->
     <feature-view></feature-view>
+
+    <!-- 5.Tab栏(流行,新款,精选) -->
+    <tab-control class="tab-control" :titles="['流行','新款','精选']"></tab-control>
+    <div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+      <div>111</div>
+
+    </div>
   </div>
 </template>
 
@@ -21,6 +153,7 @@ import NavBar from "components/common/navbar/NavBar.vue";
 import HomeSwiper from "views/home/childComps/HomeSwiper.vue";
 import RecommendView from "views/home/childComps/RecommendView";
 import FeatureView from "views/home/childComps/FeatureView";
+import TabControl from "components/content/tabControl/TabControl.vue";
 
 import { getHomeMultidata } from "network/home.js";
 
@@ -31,6 +164,7 @@ export default {
     HomeSwiper,
     RecommendView,
     FeatureView,
+    TabControl,
   },
   data() {
     return {
@@ -61,5 +195,10 @@ export default {
   left: 0;
   right: 0;
   z-index: 9;
+}
+
+.tab-control {
+  position: sticky;
+  top: 44px;
 }
 </style>
