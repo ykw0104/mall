@@ -16,135 +16,6 @@
 
     <!-- 5.Tab栏(流行,新款,精选) -->
     <tab-control class="tab-control" :titles="['流行','新款','精选']"></tab-control>
-    <div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-      <div>111</div>
-
-    </div>
   </div>
 </template>
 
@@ -155,7 +26,7 @@ import RecommendView from "views/home/childComps/RecommendView";
 import FeatureView from "views/home/childComps/FeatureView";
 import TabControl from "components/content/tabControl/TabControl.vue";
 
-import { getHomeMultidata } from "network/home.js";
+import { getHomeMultidata, getHomeGoods } from "network/home.js";
 
 export default {
   name: "Home",
@@ -170,14 +41,41 @@ export default {
     return {
       banners: [], //保存轮播图的数据
       recommends: [], //保存推荐的数据
+      goods: {
+        //保存流行,新款,精选的商品数据
+        pop: { page: 0, list: [] },
+        new: { page: 0, list: [] },
+        sell: { page: 0, list: [] },
+      },
     };
   },
   created() {
     // 1. 请求多个数据
-    getHomeMultidata().then((res) => {
-      this.banners = res.data.banner.list;
-      this.recommends = res.data.recommend.list;
-    });
+    this.getHomeMultidata_M();
+
+    //2. 请求流行,新款,精选的商品数据
+    this.getHomeGoods_M("pop");
+    this.getHomeGoods_M("new");
+    this.getHomeGoods_M("sell");
+  },
+  methods: {
+    // 1. 请求并保存多个数据
+    getHomeMultidata_M() {
+      getHomeMultidata().then((res) => {
+        this.banners = res.data.banner.list;
+        this.recommends = res.data.recommend.list;
+      });
+    },
+
+    //2. 请求并保存流行,新款,精选的商品数据
+    getHomeGoods_M(type) {
+      const page = this.goods[type].page + 1; //取出原来page,再加1
+      getHomeGoods(type, page).then((res) => {
+        //保存更新数据
+        this.goods[type].list.push(...res.data.list); //获取的下一页数据保存到相应的goods中
+        this.goods[type].page += 1; //页面加1
+      });
+    },
   },
 };
 </script>
