@@ -15,11 +15,11 @@
     <feature-view></feature-view>
 
     <!-- 5. Tab栏(流行,新款,精选) -->
-    <tab-control class="tab-control" :titles="['流行','新款','精选']"></tab-control>
+    <tab-control class="tab-control" :titles="['流行','新款','精选']" @tabClick="tabClick"></tab-control>
 
     <!-- 6. 具体的商品显示(流行,新款,精选) -->
     <!-- 传的是流行,新款,精选其中一种类型的商品 -->
-    <goods-list :oneOfGoods="goods['pop'].list"></goods-list>
+    <goods-list :oneOfGoods="goods[currentType].list"></goods-list>
   </div>
 </template>
 
@@ -47,12 +47,14 @@ export default {
     return {
       banners: [], //保存轮播图的数据
       recommends: [], //保存推荐的数据
+      //保存流行,新款,精选的商品数据
       goods: {
-        //保存流行,新款,精选的商品数据
         pop: { page: 0, list: [] },
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] },
       },
+      //当前TabControl中流行,新款,精选其中一个的值
+      currentType: "pop",
     };
   },
   created() {
@@ -65,6 +67,7 @@ export default {
     this.getHomeGoods_M("sell");
   },
   methods: {
+    /**************************** 网络请求的方法 **************************/
     // 1. 请求并保存多个数据
     getHomeMultidata_M() {
       getHomeMultidata().then((res) => {
@@ -81,6 +84,22 @@ export default {
         this.goods[type].list.push(...res.data.list); //获取的下一页数据保存到相应的goods中
         this.goods[type].page += 1; //页面加1
       });
+    },
+
+    /**************************** 事件监听相关的方法 **************************/
+    // 让Home.vue知道在TabControl里点击流行,新款,精选其中哪一个, 最后给GoodsList
+    tabClick(index) {
+      switch (index) {
+        case 0:
+          this.currentType = "pop";
+          break;
+        case 1:
+          this.currentType = "new";
+          break;
+        case 2:
+          this.currentType = "sell";
+          break;
+      }
     },
   },
 };

@@ -26,6 +26,7 @@ export default {
   methods: {
     itemClick(index) {
       this.curIndex = index;
+      this.$emit("tabClick", index); //给Home.vue传index, 知道点击了流行,新款,精选中点击了哪个
     },
   },
 };
