@@ -14,8 +14,12 @@
     <!-- 4. 本周流行,就一张图片 -->
     <feature-view></feature-view>
 
-    <!-- 5.Tab栏(流行,新款,精选) -->
+    <!-- 5. Tab栏(流行,新款,精选) -->
     <tab-control class="tab-control" :titles="['流行','新款','精选']"></tab-control>
+
+    <!-- 6. 具体的商品显示(流行,新款,精选) -->
+    <!-- 传的是流行,新款,精选其中一种类型的商品 -->
+    <goods-list :oneOfGoods="goods['pop'].list"></goods-list>
   </div>
 </template>
 
@@ -25,6 +29,7 @@ import HomeSwiper from "views/home/childComps/HomeSwiper.vue";
 import RecommendView from "views/home/childComps/RecommendView";
 import FeatureView from "views/home/childComps/FeatureView";
 import TabControl from "components/content/tabControl/TabControl.vue";
+import GoodsList from "components/content/goods/GoodsList.vue";
 
 import { getHomeMultidata, getHomeGoods } from "network/home.js";
 
@@ -36,6 +41,7 @@ export default {
     RecommendView,
     FeatureView,
     TabControl,
+    GoodsList,
   },
   data() {
     return {
