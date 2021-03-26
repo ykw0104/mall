@@ -5,21 +5,24 @@
       <div slot="center">购物街</div>
     </nav-bar>
 
-    <!-- 2. 轮播图 -->
-    <home-swiper :banners="banners"></home-swiper>
+    <!-- scroll: 滚动组件,设置可滚动的区域,这里有better-scroll实现 -->
+    <scroll class="scroll-wrapper">
+      <!-- 2. 轮播图 -->
+      <home-swiper :banners="banners"></home-swiper>
 
-    <!-- 3. 推荐 -->
-    <recommend-view :recommends="recommends"></recommend-view>
+      <!-- 3. 推荐 -->
+      <recommend-view :recommends="recommends"></recommend-view>
 
-    <!-- 4. 本周流行,就一张图片 -->
-    <feature-view></feature-view>
+      <!-- 4. 本周流行,就一张图片 -->
+      <feature-view></feature-view>
 
-    <!-- 5. Tab栏(流行,新款,精选) -->
-    <tab-control class="tab-control" :titles="['流行','新款','精选']" @tabClick="tabClick"></tab-control>
+      <!-- 5. Tab栏(流行,新款,精选) -->
+      <tab-control class="tab-control" :titles="['流行','新款','精选']" @tabClick="tabClick"></tab-control>
 
-    <!-- 6. 具体的商品显示(流行,新款,精选) -->
-    <!-- 传的是流行,新款,精选其中一种类型的商品 -->
-    <goods-list :oneOfGoods="goods[currentType].list"></goods-list>
+      <!-- 6. 具体的商品显示(流行,新款,精选) -->
+      <!-- 传的是流行,新款,精选其中一种类型的商品 -->
+      <goods-list :oneOfGoods="goods[currentType].list"></goods-list>
+    </scroll>
   </div>
 </template>
 
@@ -30,6 +33,7 @@ import RecommendView from "views/home/childComps/RecommendView";
 import FeatureView from "views/home/childComps/FeatureView";
 import TabControl from "components/content/tabControl/TabControl.vue";
 import GoodsList from "components/content/goods/GoodsList.vue";
+import Scroll from "components/common/scroll/Scroll.vue";
 
 import { getHomeMultidata, getHomeGoods } from "network/home.js";
 
@@ -42,6 +46,7 @@ export default {
     FeatureView,
     TabControl,
     GoodsList,
+    Scroll,
   },
   data() {
     return {
@@ -104,9 +109,12 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 #home {
   padding-top: 44px;
+  height: 100vh;
+
+  position: relative;
 }
 
 .home-nav {
@@ -124,4 +132,13 @@ export default {
   position: sticky;
   top: 44px;
 }
-</style>
+
+.scroll-wrapper {
+  position: absolute;
+  top: 44px;
+  bottom: 49px;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+</style>s
