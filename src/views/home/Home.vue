@@ -6,7 +6,7 @@
     </nav-bar>
 
     <!-- scroll: 滚动组件,设置可滚动的区域,这里有better-scroll实现 -->
-    <scroll class="scroll-wrapper">
+    <scroll class="scroll-wrapper" ref="scroll">
       <!-- 2. 轮播图 -->
       <home-swiper :banners="banners"></home-swiper>
 
@@ -23,6 +23,9 @@
       <!-- 传的是流行,新款,精选其中一种类型的商品 -->
       <goods-list :oneOfGoods="goods[currentType].list"></goods-list>
     </scroll>
+
+    <!-- 返回顶部按钮 -->
+    <back-top @click.native="backClick"></back-top>
   </div>
 </template>
 
@@ -34,6 +37,7 @@ import FeatureView from "views/home/childComps/FeatureView";
 import TabControl from "components/content/tabControl/TabControl.vue";
 import GoodsList from "components/content/goods/GoodsList.vue";
 import Scroll from "components/common/scroll/Scroll.vue";
+import BackTop from "components/content/backTop/BackTop.vue";
 
 import { getHomeMultidata, getHomeGoods } from "network/home.js";
 
@@ -47,6 +51,7 @@ export default {
     TabControl,
     GoodsList,
     Scroll,
+    BackTop,
   },
   data() {
     return {
@@ -105,6 +110,9 @@ export default {
           this.currentType = "sell";
           break;
       }
+    },
+    backClick() {
+      this.$refs.scroll.bscroll.scrollTo(0, 0, 800);
     },
   },
 };
