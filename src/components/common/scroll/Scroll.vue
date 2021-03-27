@@ -18,9 +18,15 @@ export default {
     };
   },
   props: {
+    // 控制是否scroll
     probeType: {
       type: Number,
       default: 0,
+    },
+    //控制是否上拉
+    pullUpLoad: {
+      type: Boolean,
+      default: false,
     },
   },
   mounted() {
@@ -30,13 +36,19 @@ export default {
     this.bscroll = new BScroll(this.$refs.wrapper, {
       click: true,
       probeType: this.probeType, //实时监听scroll事件
+      pullUpLoad: this.pullUpLoad, //监听上拉事件
     });
 
     //2. 监听
-    // 监听滚动的位置
+    //2.1 监听滚动的位置
     this.bscroll.on("scroll", (position) => {
       //监听到的位置传给父组件
       this.$emit("scroll", position);
+    });
+
+    //2.2 监听上拉事件
+    this.bscroll.on("pullingUp", () => {
+      this.$emit("pullingUp");
     });
   },
   methods: {

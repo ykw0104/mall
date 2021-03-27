@@ -6,7 +6,8 @@
     </nav-bar>
 
     <!-- scroll: 滚动组件,设置可滚动的区域,这里有better-scroll实现 -->
-    <scroll class="scroll-wrapper" ref="scroll" :probe-type="3" @scroll="contentScroll">
+    <scroll class="scroll-wrapper" ref="scroll" :probe-type="3" :pull-up-load="true" @scroll="contentScroll"
+      @pullingUp="contentPullingUp">
       <!-- 2. 轮播图 -->
       <home-swiper :banners="banners"></home-swiper>
 
@@ -119,10 +120,17 @@ export default {
       this.$refs.scroll.bscroll.scrollTo(0, 0, 800);
     },
 
+    // 显示或隐藏按钮(根据滚动到指定高度)
     // 获取监听到的内容滚动到的位置
     contentScroll(position) {
       // 当滚动到1000的时候, 显示返回顶部按钮
       this.isShowBackTop = position["y"] < -1000;
+    },
+
+    //上拉加载更多(视频里是loadMore方法)
+    contentPullingUp() {
+      //上拉时加载一页数据. 在流行,新款,精选其中的一个
+      this.getHomeGoods_M(this.currentType);
     },
   },
 };
