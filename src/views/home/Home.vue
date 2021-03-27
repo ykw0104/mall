@@ -6,7 +6,7 @@
     </nav-bar>
 
     <!-- scroll: 滚动组件,设置可滚动的区域,这里有better-scroll实现 -->
-    <scroll class="scroll-wrapper" ref="scroll">
+    <scroll class="scroll-wrapper" ref="scroll" :probe-type="3" @scroll="contentScroll">
       <!-- 2. 轮播图 -->
       <home-swiper :banners="banners"></home-swiper>
 
@@ -25,7 +25,7 @@
     </scroll>
 
     <!-- 返回顶部按钮 -->
-    <back-top @click.native="backClick"></back-top>
+    <back-top @click.native="backClick" v-show="isShowBackTop"></back-top>
   </div>
 </template>
 
@@ -65,6 +65,8 @@ export default {
       },
       //当前TabControl中流行,新款,精选其中一个的值
       currentType: "pop",
+      //返回顶部的按钮是否显示
+      isShowBackTop: false,
     };
   },
   created() {
@@ -111,8 +113,16 @@ export default {
           break;
       }
     },
+
+    // 点击按钮,页面返回顶部
     backClick() {
       this.$refs.scroll.bscroll.scrollTo(0, 0, 800);
+    },
+
+    // 获取监听到的内容滚动到的位置
+    contentScroll(position) {
+      // 当滚动到1000的时候, 显示返回顶部按钮
+      this.isShowBackTop = position["y"] < -1000;
     },
   },
 };
@@ -141,6 +151,7 @@ export default {
   top: 44px;
 }
 
+/* 视频中是 .content */
 .scroll-wrapper {
   position: absolute;
   top: 44px;
